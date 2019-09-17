@@ -38,5 +38,7 @@
     "webpack-cli": "^3.3.8",
     "webpack-dev-server": "^3.8.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "vue-concise-slider": "^3.4.2"
+  }
 }
