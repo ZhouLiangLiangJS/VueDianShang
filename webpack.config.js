@@ -29,10 +29,7 @@ module.exports = {
             {test:/\.js$/,use:['babel-loader'],exclude:/node_modules/},
             {test:/\.vue$/,use:['vue-loader']},
             {test:/\.(ttf|eot|svg|woff|woff2)$/,use:'url-loader'},
-            {
-                test:/\.(png|jpg|gif|jpeg)$/,
-                use:'url-loader'
-            }
+            {test:/\.(png|jpg|gif|jpeg)$/,use:'url-loader'}
         ]
     },
     resolve: {

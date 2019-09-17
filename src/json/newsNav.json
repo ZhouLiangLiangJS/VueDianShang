@@ -1,0 +1,18 @@
+[
+  {
+    "type": "hot",
+    "typeC": "热门"
+  },
+  {
+    "type": "toutiao",
+    "typeC": "头条"
+  },
+  {
+    "type": "motion",
+    "typeC": "运动"
+  },
+  {
+    "type": "yule",
+    "typeC": "娱乐"
+  }
+]
