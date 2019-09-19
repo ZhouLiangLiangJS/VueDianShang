@@ -34,7 +34,7 @@
             this.getNewsActive(this.docid1);
             this.getFZ()
         },updated(){
-            console.log(this.$route.query)
+            this.getFZ()
         },
         methods:{
             getNewsActive(docid){

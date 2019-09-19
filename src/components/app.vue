@@ -1,7 +1,7 @@
 <template>
     <div>
-        <transition mode="out-in">
-            <router-view></router-view>
+        <transition>
+            <router-view class="MoKuai"></router-view>
         </transition>
         <nav class="mui-bar mui-bar-tab" v-if="flag">
             <router-link class="mui-tab-item " to="/home">
@@ -19,10 +19,6 @@
             <router-link class="mui-tab-item" to="/vip">
                 <span class="mui-icon mui-icon-contact"></span>
                 <span class="mui-tab-label">个人中心</span>
-            </router-link>
-            <router-link class="mui-tab-item" to="/More">
-                <span class="mui-icon mui-icon-more-filled"></span>
-                <span class="mui-tab-label">更多</span>
             </router-link>
         </nav>
     </div>
@@ -50,11 +46,27 @@
 <style scoped lang="less">
     .mui-bar{
         box-shadow: 0 0 10px 0 hsla(0,6%,58%,.6);
+
     }
-    .v-enter,.v-leave-to{
+    .MoKuai{
+        margin-bottom: 51px;
+    }
+    .v-enter{
         opacity: 0;
+
+        transform: translateX(100%);
+        position: absolute;
+    }
+    .v-leave-to{
+        transform: translateX(-100%);
+        position: absolute;
+    }
+    .v-enter-active{
+        top: 0;
+        position: fixed;
     }
     .v-enter-active,.v-leave-active{
-        transition: all 250ms ease;
+        width: 100%;
+        transition: all 0.7s ease;
     }
 </style>

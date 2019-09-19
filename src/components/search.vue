@@ -24,6 +24,7 @@
 
 <style scoped lang="less">
     div{
+        height: 300px;
         nav{
             background-color: #fff;
             height: 30px;
