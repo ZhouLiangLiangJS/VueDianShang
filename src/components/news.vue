@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="width: 100%">
         <nav ref="news_nav" v-get-height="0.1">
             <div class="news_nav_p">
                 <router-link class="news_nav_routerLink mui-active" :ref="item.type" v-for="item in NewsType" :to="item.type" :key="item.type">
@@ -73,7 +73,7 @@
             },
             getFz(){
                 this.$refs.news_nav.style.lineHeight=this.$refs.news_nav.style.height;
-                this.$refs.newsListMoBan.$el.style.marginTop=this.$refs.news_nav.style.height;
+                this.$refs.newsListMoBan.$el.style.paddingTop=this.$refs.news_nav.style.height;
                 let fz=this.$refs.news_nav.firstElementChild.children;
                 for (let k=0;k<fz.length;k++){
                     fz[k].style.fontSize=window.innerWidth*0.05+'px'
@@ -90,7 +90,7 @@
             screenWidth(val) {
                 this.$refs.news_nav.style.height=val*0.1+'px';
                 this.getFz();
-                this.$refs.newsListMoBan.$el.style.marginTop=this.$refs.news_nav.style.height
+                this.$refs.newsListMoBan.$el.style.paddingTop=this.$refs.news_nav.style.height
             },
             "$route.path":function (val) {
                 let str=val.slice(6);

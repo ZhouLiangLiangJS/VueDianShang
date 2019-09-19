@@ -1,0 +1,50 @@
+[
+  [
+    {
+      "title":"主题聚会",
+      "synopsis": "尾货一折起",
+      "imgSrc": "https://gw.alicdn.com/tfs/TB1mA07RXXXXXcfXXXXXXXXXXXX-500-500.png_100x100q85s150.jpg"
+    },
+    {
+      "title":"量贩优选",
+      "synopsis": "1分钱疯抢",
+      "imgSrc": "https://img.alicdn.com/tps/TB1xe1.OVXXXXcfapXXXXXXXXXX-186-186.jpg_100x100q85s150.jpg"
+    }
+  ],
+  [
+    {
+     "title": "淘宝心选",
+      "synopsis": "官方自营品牌",
+      "imgSrc": "https://gw.alicdn.com/tfs/TB1Tb6QmWagSKJjy0FhXXcrbFXa-800-800.jpg_100x100q85s150.jpg"
+    },
+    {
+      "title": "聚名品",
+      "synopsis": "全球奢品促",
+      "imgSrc": "https://img.alicdn.com/tfs/TB1BVv2QVXXXXaxaXXXXXXXXXXX-186-186.jpg_100x100q85s150.jpg"
+    }
+  ],
+  [
+    {
+      "title": "淘宝众筹",
+      "synopsis": "超任性的音响",
+      "imgSrc": "https://img.alicdn.com/tfs/TB1HEBlcXYqK1RjSZLeXXbXppXa-580-580.jpg_100x100q85s150.jpg"
+    },
+    {
+      "title": "魅力惠",
+      "synopsis": "奢品秋冬上新",
+      "imgSrc": "https://gw.alicdn.com/tfs/TB17WLDm6uhSKJjSspdXXc11XXa-800-800.jpg_100x100q85s150.jpg"
+    }
+  ],
+  [
+    {
+      "title": "淘票票",
+      "synopsis": "宝贝儿",
+      "imgSrc": "https://img.alicdn.com/tfs/TB1C9oziXzqK1RjSZFoXXbfcXXa-800-800.jpg_100x100q85s150.jpg"
+    },
+    {
+      "title": "全球购",
+      "synopsis": "海淘尖货",
+      "imgSrc": "https://gw.alicdn.com/imgextra/i3/22/TB2joCyvrZnBKNjSZFrXXaRLFXa_!!22-2-luban.png_100x100q85s150.jpg"
+    }
+  ]
+]
