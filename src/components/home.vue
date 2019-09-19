@@ -66,12 +66,14 @@
                 </a>
             </div>
         </div>
+        <caiNiXiHuan :width="screenWidth"></caiNiXiHuan>
     </div>
 </template>
 
 <script>
     import Vue from 'vue';
     import { Toast } from 'mint-ui';
+    import caiNiXiHuan from './caiNiXiHuan.vue'
     Vue.directive("getHeight",{
         bind: function (el,binding) {
             el.style.height = window.innerWidth * binding.value + "px";
@@ -82,7 +84,7 @@
         data: function () {
             return {
                 imgUrl: null,
-                screenWidth: null,
+                screenWidth: window.innerWidth,
                 navList:null,
                 newsList:[
                     {
@@ -366,6 +368,9 @@
                 this.getMainFZ();
                 this.getQuanQiuFZ();
             }
+        },
+        components:{
+            caiNiXiHuan
         }
     }
 </script>
