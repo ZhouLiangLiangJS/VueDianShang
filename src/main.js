@@ -6,7 +6,7 @@ import VueJsonp from 'vue-jsonp';
 import app from './components/app.vue'
 import router from './router.js';
 import './css/index.less';
-import { Header,Swipe,SwipeItem,InfiniteScroll,Spinner} from 'mint-ui';
+import { Header,Swipe,SwipeItem,InfiniteScroll,Spinner,Lazyload} from 'mint-ui';
 import './lib/dist/css/mui.min.css';
 import './lib/css/icons-extra.css';
 Vue.use(VueJsonp);
@@ -17,9 +17,7 @@ Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
 Vue.component(Header.name,Header);
 Vue.use(VueRouter);
-document.ontouchmove = function(e){
-    e.preventDefault();
-}
+Vue.use(Lazyload);
 let vm=new Vue({
     el:'#dv',
     render:(c)=>c(app),

@@ -325,7 +325,6 @@
                 this.$http.get('../json/quanqiu.json').then(function (res,err) {
                     if(res.status===200){
                         this.getQuanQiuArr=res.body
-                        console.log(this.getQuanQiuArr)
                     }
                 })
             },
