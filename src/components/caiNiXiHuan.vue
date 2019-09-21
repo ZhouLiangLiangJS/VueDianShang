@@ -5,15 +5,19 @@
             <li v-for="item in list">
                 <div v-for="comList in item" v-get-height="0.6875" :style="'height: '+width*0.6875+'px'">
                     <img :src="comList.imgUrl" alt="无法显示">
-                    <span>{{comList.title}}</span>
-                    <p>￥{{comList.Price}}</p>
-                    <i>{{comList.NumberPeople}}人付款</i>
+                    <span :style="'font-size: '+width*0.04+'px; lineHeight:'+width*0.05+'px;height:'+width*0.1+'px'">{{comList.title}}</span>
+                    <p :style="'font-size: '+width*0.04+'px;lineHeight:'+width*0.04+'px'">￥{{comList.Price}}</p>
+                    <i :style="'font-size: '+width*0.035+'px;lineHeight:'+width*0.04+'px'">{{comList.NumberPeople}}人付款</i>
                 </div>
             </li>
             <div v-get-height="0.2" class="spinner">
-                <div class="my_spinner_div" v-show="flag">
+                <div class="my_spinner_div" v-show="flag" >
                     <span :style="'font-size: '+width*0.04+'px'">正在加载中</span>
                     <mt-spinner id="mt-spinner" type="fading-circle" color="#ccc" :size="width*0.0875"></mt-spinner>
+                </div>
+                <div class="my_spinner_div" v-if="daodile" >
+                    <span :style="'font-size: '+width*0.04+'px'">已经到底啦！！！</span>
+<!--                    <mt-spinner id="mt-spinner" type="fading-circle" color="#ccc" :size="width*0.0875"></mt-spinner>-->
                 </div>
             </div>
         </ul>
@@ -28,20 +32,25 @@
             return{
                 list:[],
                 loading:false,
-                flag:false
+                flag:false,
+                daodile:false
             }
         },
         props:['width'],
         methods:{
             loadMore() {
                 this.flag = true;
-                this.$http.get("../json/commodityList.json").then(function (res) {
-                    if (res.status === 200) {
-                        this.list.push(res.body);
-                        this.flag = false;
-                        console.log(this.list)
-                    }
-                });
+                if(this.list.length<4){
+                    this.$http.get("../json/commodityList.json").then(function (res) {
+                        if (res.status === 200) {
+                            this.list.push(res.body);
+                            this.flag = false;
+                            console.log(this.list.length)
+                        }
+                    })
+                }else {
+                    this.daodile = true;
+                }
             }
         },
         watch:{
@@ -85,17 +94,21 @@
                     color: #232326;
                     margin-top: 5px;
                     line-height: 16px;
-                    margin-bottom: 3px;
                     padding: 0 4px;
                 }
                 p{
-                    padding-left: 2%;
+                    margin: 0;
+                    padding: 0;
+                    position: absolute;
+                    /*transform: translateX(2%) translateY(2%);*/
+                    left: 2%;
+                    bottom: 2%;
                     color: #f23030;
                 }
                 i{
                     font-style: normal ;
                     position: absolute;
-                    bottom: 0;
+                    bottom: 2%;
                     color: #cccccc;
                     right: 5%;
                     font-size: 12px;
