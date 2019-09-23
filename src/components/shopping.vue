@@ -1,12 +1,16 @@
 <template>
-    <h1 @click="al('未制作对应页面')">我是shopping</h1>
+    <cai></cai>
 </template>
 
 <script>
+    import cai from './caiNiXiHuan.vue'
     export default {
         name: "shopping",
         methods:{
 
+        },
+        components:{
+            cai
         }
     }
 </script>

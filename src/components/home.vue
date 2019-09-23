@@ -1,12 +1,10 @@
 <template>
     <div>
-        <router-link to="/search">
-            <header class="search">
-                <nav class="search_main">
-                    <span class="mui-icon mui-icon-search"></span>
-                    <span class="search_baby">寻找宝贝店铺</span>
-                </nav>
-            </header>
+        <router-link to="/search" class="search" tag="header">
+            <nav class="search_main">
+                <span class="mui-icon mui-icon-search"></span>
+                <span class="search_baby">寻找宝贝店铺</span>
+            </nav>
         </router-link>
         <mt-swipe :auto="4000" :show-indicators="false" class="swipe" v-getHeight="0.412" ref="swipe">
             <mt-swipe-item class="swipe_a" v-for="(item,i) in imgUrl" :key="i"  >
@@ -220,6 +218,7 @@
             this.getNewsFZ();
             this.getMainFZ();
             this.getQuanQiuFZ();
+            console.log(this.$el.scrollIntoView)
         },
         updated(){
             this.getNavListFZ();

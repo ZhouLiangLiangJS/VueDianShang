@@ -17,7 +17,6 @@
                 </div>
                 <div class="my_spinner_div" v-if="daodile" >
                     <span :style="'font-size: '+width*0.04+'px'">已经到底啦！！！</span>
-<!--                    <mt-spinner id="mt-spinner" type="fading-circle" color="#ccc" :size="width*0.0875"></mt-spinner>-->
                 </div>
             </div>
         </ul>
@@ -45,10 +44,10 @@
                         if (res.status === 200) {
                             this.list.push(res.body);
                             this.flag = false;
-                            console.log(this.list.length)
                         }
                     })
                 }else {
+                    this.flag = false;
                     this.daodile = true;
                 }
             }
