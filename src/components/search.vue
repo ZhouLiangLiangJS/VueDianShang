@@ -29,12 +29,16 @@
         <transition name="searchType">
             <commodityList v-if="commodityListFlag" :type='type' :querySearch="comprops" :style="'top:'+screenWidth*0.1+'px'" :screenWidth="screenWidth"></commodityList>
         </transition>
+        <transition name="searchType">
+            <caiNiXiHuan :width="screenWidth" v-if="commodityListFlag" class="caiNiXiHuan"></caiNiXiHuan>
+        </transition>
     </div>
 </template>
 
 <script>
     import { Toast } from 'mint-ui';
-    import commodityList from './commodityList.vue'
+    import commodityList from './commodityList.vue';
+    import caiNiXiHuan from './caiNiXiHuan.vue'
     export default {
         name: "search",
         data(){
@@ -133,7 +137,8 @@
             }
         },
         components:{
-            commodityList
+            commodityList,
+            caiNiXiHuan
         }
     }
 </script>
@@ -256,7 +261,7 @@
             border-radius: 10px;
             left: 3%;
             width: 80%;
-            position: absolute;
+            position: fixed;
             background-color: #f9f9f9;
             z-index: 999;
             top: 40px;
@@ -270,12 +275,16 @@
                 padding-left: 10%;
             }
         }
+        .caiNiXiHuan{
+            position: relative;
+            margin-top: 10%;
+        }
     }
     .searchType-enter,.searchType-leave-to{
         transform: translateX(-200%);
         opacity: 0;
     }
     .searchType-enter-active,.searchType-leave-active{
-        transition:all 0.7s ease;
+        transition:all 0.3s ease;
     }
 </style>
