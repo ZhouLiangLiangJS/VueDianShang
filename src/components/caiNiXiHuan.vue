@@ -15,7 +15,7 @@
                     <span :style="'font-size: '+width*0.04+'px'">正在加载中</span>
                     <mt-spinner id="mt-spinner" type="fading-circle" color="#ccc" :size="width*0.0875"></mt-spinner>
                 </div>
-                <div class="my_spinner_div" v-if="daodile" >
+                <div class="my_spinner_div" v-show="daodile" >
                     <span :style="'font-size: '+width*0.04+'px'">已经到底啦！！！</span>
                 </div>
             </div>

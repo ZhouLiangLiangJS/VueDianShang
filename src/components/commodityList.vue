@@ -257,6 +257,6 @@
         opacity: 0;
     }
     .v-enter-active,.v-leave-active{
-        transition:all 0.3s ease;
+        transition:all 1s ease;
     }
 </style>

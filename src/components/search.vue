@@ -27,10 +27,10 @@
                 <p class="label_RecentSearch"  :style="'font-size: '+screenWidth*0.04+'px;lineHeight:'+screenWidth*0.08+'px;top:'+screenWidth*0.13+'px'">近期搜索</p>
             </div>
         <transition name="searchType">
-            <commodityList v-if="commodityListFlag" :type='type' :querySearch="comprops" :style="'top:'+screenWidth*0.1+'px'" :screenWidth="screenWidth"></commodityList>
+            <commodityList v-show="commodityListFlag" :type='type' :querySearch="comprops" :style="'top:'+screenWidth*0.1+'px'" :screenWidth="screenWidth"></commodityList>
         </transition>
         <transition name="searchType">
-            <caiNiXiHuan :width="screenWidth" v-if="commodityListFlag" class="caiNiXiHuan"></caiNiXiHuan>
+            <caiNiXiHuan :width="screenWidth" v-show="commodityListFlag" class="caiNiXiHuan"></caiNiXiHuan>
         </transition>
     </div>
 </template>
@@ -79,8 +79,9 @@
             },
             search(){
                if(this.value!==''){
-                   let arr=JSON.parse(window.localStorage.getItem("RecentSearch")===null?"[]":window.localStorage.getItem("RecentSearch"))
+                   let arr=JSON.parse(window.localStorage.getItem("RecentSearch")===null?"[]":window.localStorage.getItem("RecentSearch"));
                    arr.unshift(this.value);
+                   arr.splice(10);
                    window.localStorage.setItem("RecentSearch", JSON.stringify(arr));
                    this.comprops=this.value;
                    this.commodityListFlag=true;
@@ -285,6 +286,6 @@
         opacity: 0;
     }
     .searchType-enter-active,.searchType-leave-active{
-        transition:all 0.3s ease;
+        transition:all 1s ease;
     }
 </style>

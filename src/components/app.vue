@@ -4,7 +4,7 @@
             <router-view class="MoKuai"></router-view>
         </transition>
         <transition>
-            <nav class="mui-bar mui-bar-tab" v-if="flag">
+            <nav class="mui-bar mui-bar-tab" v-show="flag">
                 <router-link class="mui-tab-item " to="/home">
                     <span class="mui-icon mui-icon-home"></span>
                     <span class="mui-tab-label">首页</span>
