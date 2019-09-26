@@ -6,6 +6,8 @@ import search from './components/search.vue'
 import list from './components/list.vue'
 import news from './components/news.vue'
 import newsListMoBan from './components/newsListMoBan.vue'
+import commodityDetails from './components/commodityDetails.vue'
+
 let router=new VueRouter({
     routes:[
         {path:'/home',component:home},
@@ -14,6 +16,7 @@ let router=new VueRouter({
         {path:'/shopping',component:shopping},
         {path:'/list',component:list},
         {path:'/search',component:search},
+        {path:'/commodityDetails/:id',component:commodityDetails},
         {path:'/news',component:news,redirect:'/news/hot',
             children:[
                 {path:'hot',component:newsListMoBan},

@@ -3,12 +3,12 @@
         <ul v-infinite-scroll="loadMore" class="loadMore">
             <img src="../image/88174b36f85283b6.png" alt="">
             <li v-for="item in list">
-                <div v-for="comList in item" v-get-height="0.6875" :style="'height: '+width*0.6875+'px'">
+                <router-link :key="comList.id" :style="'height: '+width*0.6875+'px'" :to="'/commodityDetails/'+comList.id" tag="div" v-for="comList in item" v-get-height="0.6875">
                     <img :src="comList.imgUrl" alt="无法显示">
                     <span :style="'font-size: '+width*0.04+'px; lineHeight:'+width*0.05+'px;height:'+width*0.1+'px'">{{comList.title}}</span>
                     <p :style="'font-size: '+width*0.04+'px;lineHeight:'+width*0.04+'px'">￥{{comList.Price}}</p>
                     <i :style="'font-size: '+width*0.035+'px;lineHeight:'+width*0.04+'px'">{{comList.NumberPeople}}人付款</i>
-                </div>
+                </router-link>
             </li>
             <div v-get-height="0.2" class="spinner">
                 <div class="my_spinner_div" v-show="flag" >

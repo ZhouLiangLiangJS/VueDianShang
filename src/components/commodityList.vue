@@ -14,18 +14,19 @@
             </div>
         </transition>
         <div class="list">
-            <div class="list_com" ref="list_com" v-get-height="0.6875" :style="'height: '+screenWidth*0.6875+'px'" v-for="item in searchList">
+            <router-link :key="item.id" :style="'height: '+screenWidth*0.6875+'px'" :to="'/commodityDetails/'+item.id" class="list_com" ref="list_com" v-for="item in searchList" v-get-height="0.6875">
                 <img :src="item.imgUrl" alt="无法显示">
                 <span :style="'font-size: '+screenWidth*0.04+'px; lineHeight:'+screenWidth*0.05+'px;height:'+screenWidth*0.1+'px'">{{item.title}}</span>
                 <p :style="'font-size: '+screenWidth*0.04+'px;lineHeight:'+screenWidth*0.04+'px'">￥{{item.Price}}</p>
                 <i :style="'font-size: '+screenWidth*0.035+'px;lineHeight:'+screenWidth*0.04+'px'">{{item.NumberPeople}}人付款</i>
-            </div>
+            </router-link>
         </div>
     </div>
 </template>
 
 <script>
-    import { Toast } from 'mint-ui';
+    import {Toast} from 'mint-ui';
+
     export default {
         name: "commodity",
         data() {
@@ -143,7 +144,6 @@
                         }
                     }
                     this.searchList=arr2;
-                    console.log(this.searchList)
                 });
             },
             searchShop(){

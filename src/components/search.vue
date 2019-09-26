@@ -36,9 +36,10 @@
 </template>
 
 <script>
-    import { Toast } from 'mint-ui';
+    import {Toast} from 'mint-ui';
     import commodityList from './commodityList.vue';
     import caiNiXiHuan from './caiNiXiHuan.vue'
+
     export default {
         name: "search",
         data(){
@@ -286,6 +287,6 @@
         opacity: 0;
     }
     .searchType-enter-active,.searchType-leave-active{
-        transition:all 1s ease;
+        transition:all 0.3s ease;
     }
 </style>
