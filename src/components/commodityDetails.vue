@@ -10,8 +10,9 @@
             </mt-swipe-item>
         </mt-swipe>
         <div :style="'height:'+this.screenWidth*0.375+'px'" class="tit">
-            <p :style="'fontSize:'+this.screenWidth*0.08+'px;lineHeight:'+this.screenWidth*0.088+'px'">￥{{showCommodity.jiaGe}}</p>
-            <p :style="'fontSize:'+this.screenWidth*0.05+'px;lineHeight:'+this.screenWidth*0.06+'px'">{{showCommodity.title}}</p>
+            <p :style="'fontSize:'+this.screenWidth*0.06+'px;lineHeight:'+this.screenWidth*0.088+'px'">￥{{showCommodity.jiaGe}}</p>
+            <p :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.06+'px'">{{showCommodity.title}}</p>
+            <p :style="'fontSize:'+this.screenWidth*0.035+'px;lineHeight:'+this.screenWidth*0.035+'px'">价格:￥<span>{{showCommodity.yuanJia}}</span></p>
             <div>
                 <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.04+'px;margin-right:23%'">物流:{{showCommodity.yunFei==="true"?'免运费':'不免运费'}}</span>
                 <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.04+'px;margin-right:23%'">月销:{{showCommodity.yueXiao}}</span>
@@ -23,14 +24,56 @@
             <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.11+'px'">{{showCommodity.fuWuArr.title}}</span>
             <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.11+'px'" class="mui-icon mui-icon-arrowright"></span>
         </div>
+        <div :style="'height:'+this.screenWidth*0.11+'px;marginTop:2%;'" @click="GouWuFlag=!GouWuFlag" class="fuWu">
+            <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.11+'px'">规格</span>
+            <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.11+'px'">已选:{{guiGeXuanZhong===null?showCommodity.JiaRuGouWuChe[0].classTitle[0].txt:guiGeXuanZhong}}</span>
+            <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.11+'px'" class="mui-icon mui-icon-arrowright"></span>
+        </div>
         <transition name="fuWu">
-            <div :style="'height:'+this.screenHidth*0.8+'px'" class="fuWuFlag" v-show="fuWuFlag">
-                <div :style="'height:'+this.screenHidth*0.05+'px;fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.1+'px'" class="fuWuFlag_title">基础服务</div>
-                <div :style="'height:'+this.screenHidth*0.65+'px'" class="fuWuFlag_main">
-
+            <div :style="'height:'+this.screenHeight*0.8+'px'" class="fuWuFlag" v-show="fuWuFlag">
+                <div class="fuWuFlag_title">基础服务</div>
+                <div :style="'height:'+this.screenHeight*0.65+'px'" class="fuWuFlag_main">
+                    <div class="fuWuFlag_main_jiChu" v-for="item in showCommodity.fuWuArr.jiChu">
+                        <p ><span class="mui-icon mui-icon-checkmarkempty"></span>{{item.title}}</p>
+                        <p >{{item.main}}</p>
+                    </div>
+                    <div class="fuWuFlag_main_qiTa">
+                        <h3>其他</h3>
+                        <p v-for="item in showCommodity.fuWuArr.qiTa"><span class="mui-icon mui-icon-checkmarkempty"></span>{{item}}</p>
+                    </div>
                 </div>
-                <div :style="'height:'+this.screenHidth*0.08+'px'" class="fuWuFlag_bottom">
+                <div :style="'height:'+this.screenHeight*0.08+'px'" class="fuWuFlag_bottom">
                     <button @click="fuWuFlag=!fuWuFlag">完成</button>
+                </div>
+            </div>
+        </transition>
+        <transition name="fuWu">
+            <div :style="'height:'+this.screenHeight*0.8+'px'" class="GouWuFlag" v-show="GouWuFlag">
+                <div class="GouWuFlag_nav">
+                    <img :src="GouWuFlag_nav_imgSrc===null?showCommodity.JiaRuGouWuChe[0].classTitle[0].imgUrl:GouWuFlag_nav_imgSrc" alt="无法显示">
+                    <span>￥{{GouWuFlag_nav_JiaGe===null?showCommodity.JiaRuGouWuChe[0].classTitle[0].JiaGe:GouWuFlag_nav_JiaGe}}</span>
+                    <span>已选：{{guiGeXuanZhong===null?showCommodity.JiaRuGouWuChe[0].classTitle[0].txt:guiGeXuanZhong}}</span>
+                    <span @click="GouWuFlag=!GouWuFlag" class="mui-icon mui-icon-closeempty"></span>
+                </div>
+                <div class="GouWuFlag_main">
+                    <div v-for="item in showCommodity.JiaRuGouWuChe">
+                        <p>{{item.title}}</p>
+                        <button v-for="child in item.classTitle">{{child.txt}}</button>
+                    </div>
+                    <div class="gouMaiShuLiang">
+                        <p>购买数量</p>
+                        <div>
+                            <input @click="GouMaiShuLiang<=1?GouMaiShuLiang=1:--GouMaiShuLiang" type="button" value="-">
+                            <input @keyup="GouMaiShuLiang<=1?GouMaiShuLiang=1:null" type="text" v-model="GouMaiShuLiang">
+                            <input @click="GouMaiShuLiang++" type="button" value="+">
+                        </div>
+                    </div>
+                </div>
+                <div class="GouWuFlag_bottom">
+                    <div>
+                        <button>加入购物车</button>
+                        <button>立刻购买</button>
+                    </div>
                 </div>
             </div>
         </transition>
@@ -129,8 +172,13 @@
                         "https://gw.alicdn.com/tfs/TB1d0h2qVYqK1RjSZLeXXbXppXa-1125-960.png"
                     ]
                 },
-                screenHidth:window.innerHeight,
-                fuWuFlag:false
+                screenHeight:window.innerHeight,
+                fuWuFlag:false,
+                guiGeXuanZhong:null,
+                GouWuFlag:false,
+                GouWuFlag_nav_imgSrc:null,
+                GouWuFlag_nav_JiaGe:null,
+                GouMaiShuLiang:1
             }
         },
         methods:{
@@ -154,13 +202,13 @@
               this.$router.go(-1)
           }
         },
-        created(){
+        created() {
             this.getJson();
             window.onresize = () => {
                 return (() => {
                     window.screenWidth = window.innerWidth;
                     this.screenWidth = window.screenWidth;
-                    this.screenHidth = window.innerHeight;
+                    this.screenHeight = window.innerHeight;
                 })()
             };
         },
@@ -219,6 +267,14 @@
             top: 10%;
             color: #ff5000;
         }
+        :nth-child(3){
+            top: 29%;
+            color: #999;
+            span{
+                text-decoration:line-through;
+                color: #999;
+            }
+        }
         div{
             width: 98%;
             position: absolute;
@@ -260,6 +316,7 @@
             transform: translateY(-50%);
             right: 2%;
             font-weight: 600;
+            color: #999;
         }
     }
     .fuWuFlag{
@@ -270,12 +327,55 @@
         z-index: 99;
         border-radius: 3% 3% 0 0;
         .fuWuFlag_title{
+            height: 30px;
+            font-size: 12px;
+            line-height: 30px;
             text-align: center;
             z-index: 9;
         }
         .fuWuFlag_main{
             overflow:scroll;
-            background-color: darkblue;
+            overflow-x: hidden;
+            padding-left:3%;
+            .fuWuFlag_main_jiChu{
+                margin-bottom: 10%;
+                p{
+                    margin: 0 0 2% 0;
+                    padding-right:3%;
+                    font-size: 12px;
+                }
+                :nth-child(1){
+                    span{
+                        font-size: 15px;
+                        border: 1px solid #ff5000;
+                        border-radius: 100%;
+                        color: #ff5000;
+                        margin-right: 3%;
+                    }
+                }
+                :nth-child(2){
+                    padding-left: 10%;
+                }
+            }
+            .fuWuFlag_main_qiTa{
+                h3{
+                    font-weight: 400;
+                    font-size: 12px;
+                    text-align: center;
+                    margin-bottom: 10%;
+                }
+                p{
+                    font-size: 12px;
+                    margin-bottom: 10%;
+                    span{
+                        font-size: 15px;
+                        border: 1px solid #ff5000;
+                        border-radius: 100%;
+                        color: #ff5000;
+                        margin-right: 3%;
+                    }
+                }
+            }
         }
         .fuWuFlag_bottom{
             text-align: center;
@@ -286,6 +386,119 @@
                 background-image: linear-gradient(to right, #FF9000 0%, #FF5000 100%);
                 border: 0;
                 color: #ffffff;
+            }
+        }
+    }
+    .GouWuFlag{
+        position: fixed;
+        width: 100%;
+        background-color: #fff;
+        bottom: 0;
+        z-index: 99;
+        border-radius: 3% 3% 0 0;
+        .GouWuFlag_nav{
+            width: 94%;
+            height: 120px;
+            margin: 0 auto;
+            padding: 10px 3% 10px 0;
+            border-bottom: 1px solid #cccccc;
+            position: relative;
+            img{
+                height: 100%;
+            }
+            :nth-child(2){
+                font-size: 14px;
+                position: absolute;
+                bottom: 20%;
+                color: #ff5000;
+                padding-left: 2%;
+            }
+            :nth-child(3){
+                padding-left: 2%;
+                width: 65%;
+                height: 20px;
+                font-size: 12px;
+                position: absolute;
+                bottom: 5%;
+                color: #333;
+                overflow: hidden;
+                text-overflow:ellipsis;
+                white-space: nowrap;
+            }
+            :nth-child(4){
+                color: #333333;
+                border: 1px solid #333333;
+                border-radius: 100%;
+                position: absolute;
+                right: 0;
+                top: 4%;
+            }
+        }
+        .GouWuFlag_main{
+            overflow:scroll;
+            overflow-x: hidden;
+            margin: 3%;
+            padding-bottom: 3%;
+            height: 60%;
+            div{
+                border-bottom: 1px solid #ccc;
+                padding-bottom: 20px;
+                margin-bottom: 20px;
+                p{
+                    font-size: 14px;
+                    color: #333;
+                }
+                button{
+                    margin: 5px;
+                    font-size: 12px;
+                    border-radius: 20px;
+                }
+            }
+            .gouMaiShuLiang{
+                position: relative;
+                div{
+                    width: 90px;
+                    position: absolute;
+                    border: 0;
+                    right: 0;
+                    top: 0;
+                    input{
+                        padding: 5px;
+                        height: 30px;
+                        font-size: 15px;
+                        margin: 0 0 0 3.3%;
+                        width: 30%;
+                        float: left;
+                        border: 0;
+                        background-color: #f6f6f6;
+                    }
+                }
+            }
+        }
+        .GouWuFlag_bottom{
+            height: 8%;
+            div{
+                width: 90%;
+                margin: 0 auto;
+                height: 90%;
+                button{
+                    float: left;
+                    margin: 0;
+                    padding: 0;
+                    width: 50%;
+                    height: 100%;
+                    border: 0;
+                    font-size: 12px;
+                    color: #ffffff;
+                }
+                :nth-child(1){
+                    background-image: linear-gradient(to right, #FFC500, #FF9402);
+                    border-radius: 15px 0 0 15px;
+                }
+                :nth-child(2){
+                    border-radius: 0 15px 15px 0;
+                    background-image: linear-gradient(to right, #FF7A00, #FE560A);
+                }
             }
         }
     }
