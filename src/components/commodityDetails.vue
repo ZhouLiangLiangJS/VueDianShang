@@ -58,7 +58,7 @@
                 <div class="GouWuFlag_main">
                     <div :key="item.title" v-for="(item,i) in showCommodity.JiaRuGouWuChe">
                         <p>{{item.title}}</p>
-                        <button :class="{active:child.txt===JiaRuGouWuCheActive}" :key="child.txt"  @click="JiaRuGouWuChe(i,child.txt)" v-for="child in item.classTitle">{{child.txt}}</button>
+                        <button :class="{active:child.txt===JiaRuGouWuCheActive[i]}" :key="child.txt"  @click="JiaRuGouWuChe(i,child.txt)" v-for="child in item.classTitle">{{child.txt}}</button>
                     </div>
                     <div class="gouMaiShuLiang">
                         <p>购买数量</p>
@@ -179,7 +179,7 @@
                 GouWuFlag_nav_imgSrc:null,
                 GouWuFlag_nav_JiaGe:null,
                 GouMaiShuLiang:1,
-                JiaRuGouWuCheActive: "12CM厚(针织面料+3E环保椰棕)"
+                JiaRuGouWuCheActive: ['10CM厚(针织面料+3环保椰棕)']
             }
         },
         methods:{
@@ -190,9 +190,6 @@
                            for (let i = 0; i < res.body.length; i++) {
                                if (this.$route.params.id===res.body[i].id){
                                    this.showCommodity=res.body[i];
-                                   // for(let j = 0;j<res.body[i].JiaRuGouWuChe.length;j++){
-                                   //     this.JiaRuGouWuCheActive[j]={title:res.body[i].JiaRuGouWuChe[j].title,active:null}
-                                   // }
                               }
                           }
                       }else {
@@ -206,7 +203,9 @@
                 this.$router.go(-1)
             },
             JiaRuGouWuChe(i,txt,imgUrl,jiaGe){
-                this.JiaRuGouWuCheActive=txt;
+                let arr=this.JiaRuGouWuCheActive.slice();
+                arr[i]=txt;
+                this.JiaRuGouWuCheActive=arr;
                 console.log(this.JiaRuGouWuCheActive);
             }
         },
@@ -522,8 +521,8 @@
         transition: all 0.3s;
     }
     .active{
-        background-image: linear-gradient(to right, #FF7A00 100%, #FE560A 100%) ;
+        background-color: #FF7A00;
         color: #ffffff;
-        border: 0;
+        border: 1px solid #FF7A00 ;
     }
 </style>

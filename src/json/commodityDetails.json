@@ -26,6 +26,7 @@
     "JiaRuGouWuChe": [
       {
         "title": "颜色分类",
+        "i": 0,
         "classTitle": [
           {
             "txt": "10CM厚(针织面料+3环保椰棕)",
@@ -44,6 +45,7 @@
       },
       {
         "title": "是否含花瓶",
+        "i": 1,
         "classTitle": [
           {
             "txt": "不含花瓶",
