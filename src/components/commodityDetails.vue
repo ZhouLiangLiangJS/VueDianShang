@@ -50,15 +50,15 @@
         <transition name="fuWu">
             <div :style="'height:'+this.screenHeight*0.8+'px'" class="GouWuFlag" v-show="GouWuFlag">
                 <div class="GouWuFlag_nav">
-                    <img :src="GouWuFlag_nav_imgSrc===null?showCommodity.JiaRuGouWuChe[0].classTitle[0].imgUrl:GouWuFlag_nav_imgSrc" alt="无法显示">
-                    <span>￥{{GouWuFlag_nav_JiaGe===null?showCommodity.JiaRuGouWuChe[0].classTitle[0].JiaGe:GouWuFlag_nav_JiaGe}}</span>
-                    <span>已选：{{guiGeXuanZhong===null?showCommodity.JiaRuGouWuChe[0].classTitle[0].txt:guiGeXuanZhong}}</span>
+                    <img :src="GouWuFlag_nav_imgSrc===null?GouWuFlag_nav_imgSrc=showCommodity.JiaRuGouWuChe[0].classTitle[0].imgUrl:GouWuFlag_nav_imgSrc" alt="无法显示">
+                    <span>￥{{GouWuFlag_nav_JiaGe===null?GouWuFlag_nav_JiaGe=showCommodity.JiaRuGouWuChe[0].classTitle[0].JiaGe:GouWuFlag_nav_JiaGe}}</span>
+                    <span>已选：{{guiGeXuanZhong===null?guiGeXuanZhong=showCommodity.JiaRuGouWuChe[0].classTitle[0].txt:guiGeXuanZhong}}</span>
                     <span @click="GouWuFlag=!GouWuFlag" class="mui-icon mui-icon-closeempty"></span>
                 </div>
                 <div class="GouWuFlag_main">
                     <div :key="item.title" v-for="(item,i) in showCommodity.JiaRuGouWuChe">
                         <p>{{item.title}}</p>
-                        <button :class="{active:child.txt===JiaRuGouWuCheActive[i]}" :key="child.txt"  @click="JiaRuGouWuChe(i,child.txt)" v-for="child in item.classTitle">{{child.txt}}</button>
+                        <button :class="{active:child.txt===JiaRuGouWuCheActive[i]}" :key="child.txt"  @click="JiaRuGouWuChe(i,child.txt,child.imgUrl,child.JiaGe)" v-for="child in item.classTitle">{{child.txt}}</button>
                     </div>
                     <div class="gouMaiShuLiang">
                         <p>购买数量</p>
@@ -77,6 +77,38 @@
                 </div>
             </div>
         </transition>
+        <div :style="'height:'+this.screenWidth*0.35+'px;marginTop:2%;'" class="pingJia">
+            <p class="pingjia_header">
+                <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.11+'px'">宝贝评价({{showCommodity.pingJia.length}})</span>
+                <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.11+'px'" class="mui-icon mui-icon-arrowright"></span>
+                <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.11+'px'">查看全部</span>
+            </p>
+            <div>
+                <img :src="showCommodity.pingJia[0].userImage" :style="'width:'+this.screenWidth*0.04+'px;'" alt="">
+                <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.05+'px'">{{showCommodity.pingJia[0].userName}}</span>
+                <p :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.055+'px;height:'+this.screenWidth*0.1+'px;'">{{showCommodity.pingJia[0].txt}}</p>
+            </div>
+        </div>
+        <div :style="'height:'+this.screenWidth*0.3+'px;marginTop:2%;'" class="dianPu">
+            <div class="dianPu_one">
+                <div class="dianPu_one_left">
+                    <img :src="showCommodity.touXiang" alt="无法显示" class="touXiang">
+                    <span :style="'fontSize:'+this.screenWidth*0.035+'px'">慕斯优</span>
+                    <div class="dianPu_one_left_dengJi">
+                        <img  :src="item" alt=""  class="dengJi" v-for="item in showCommodity.dengJi">
+                    </div>
+                </div>
+                <div class="dianPu_one_right">
+                    <button :style="'fontSize:'+this.screenWidth*0.035+'px'">进店逛逛</button>
+                    <button :style="'fontSize:'+this.screenWidth*0.035+'px'">全部宝贝</button>
+                </div>
+            </div>
+            <div class="dianPu_two">
+                <span :style="'fontSize:'+this.screenWidth*0.035+'px'" class="dianPu_two_span">宝贝描述:<span>{{showCommodity.pingFen[0]}}    {{showCommodity.pingFen[0]>=4?'高':'低'}}</span>    </span>
+                <span :style="'fontSize:'+this.screenWidth*0.035+'px'" class="dianPu_two_span">宝贝描述:<span>{{showCommodity.pingFen[1]}}    {{showCommodity.pingFen[1]>=4?'高':'低'}}</span>    </span>
+                <span :style="'fontSize:'+this.screenWidth*0.035+'px'" class="dianPu_two_span">宝贝描述:<span>{{showCommodity.pingFen[2]}}    {{showCommodity.pingFen[2]>=4?'高':'低'}}</span>    </span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -177,9 +209,10 @@
                 guiGeXuanZhong:null,
                 GouWuFlag:false,
                 GouWuFlag_nav_imgSrc:null,
+                GouWuFlag_nav_JiaGeJiCu:[],
                 GouWuFlag_nav_JiaGe:null,
                 GouMaiShuLiang:1,
-                JiaRuGouWuCheActive: ['10CM厚(针织面料+3环保椰棕)']
+                JiaRuGouWuCheActive: ['']
             }
         },
         methods:{
@@ -190,23 +223,34 @@
                            for (let i = 0; i < res.body.length; i++) {
                                if (this.$route.params.id===res.body[i].id){
                                    this.showCommodity=res.body[i];
+                                   for(let j =0 ;j<this.showCommodity.JiaRuGouWuChe.length;j++){
+                                       this.GouWuFlag_nav_JiaGeJiCu[j]=this.showCommodity.JiaRuGouWuChe[j].classTitle[0].JiaGe;
+                                   }
                               }
                           }
                       }else {
                           console.log(err)
                       }
                   }
-              )
-              console.log(this.JiaRuGouWuCheActive)
+              );
           },
             backGo(){
                 this.$router.go(-1)
             },
             JiaRuGouWuChe(i,txt,imgUrl,jiaGe){
+                this.GouMaiShuLiang=1;
                 let arr=this.JiaRuGouWuCheActive.slice();
                 arr[i]=txt;
                 this.JiaRuGouWuCheActive=arr;
-                console.log(this.JiaRuGouWuCheActive);
+                if (i===0){
+                    this.GouWuFlag_nav_imgSrc=imgUrl;
+                }
+                this.GouWuFlag_nav_JiaGeJiCu[i]=jiaGe;
+                let num=0;
+                for(let j =0;j<this.GouWuFlag_nav_JiaGeJiCu.length;j++){
+                   num+=this.GouWuFlag_nav_JiaGeJiCu[j]
+                }
+                this.GouWuFlag_nav_JiaGe=num;
             }
         },
         created() {
@@ -219,7 +263,16 @@
                 })()
             };
         },
-        components:{vueSeamless}
+        components:{vueSeamless},
+        watch:{
+            "GouMaiShuLiang":function(val,old){
+                let num=0;
+                for(let j =0;j<this.GouWuFlag_nav_JiaGeJiCu.length;j++){
+                    num+=this.GouWuFlag_nav_JiaGeJiCu[j]
+                }
+                this.GouWuFlag_nav_JiaGe=val*num;
+            }
+        }
     }
 </script>
 
@@ -524,5 +577,121 @@
         background-color: #FF7A00;
         color: #ffffff;
         border: 1px solid #FF7A00 ;
+    }
+    .pingJia{
+        width: 100%;
+        background-color: #fff;
+        .pingjia_header{
+            padding: 0;
+            margin: 0;
+            :nth-child(1){
+                margin-left: 2%;
+            }
+            :nth-child(3){
+                float: right;
+                margin-right: 2%;
+            }
+            :nth-child(2){
+                float: right;
+                margin-right: 2%;
+                font-weight: 600;
+            }
+            :nth-child(3),:nth-child(2){
+                color: rgb(255, 80, 0);
+            }
+        }
+        div{
+            position: relative;
+            width: 94%;
+            margin: 0 auto 10%;
+            img{
+                border-radius: 100%;
+            }
+            span{
+                color: #999999;
+            }
+            p{
+                box-sizing: border-box;
+                height: 31px;
+                font-size: 13px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                word-break: break-word;
+                color: #232326;
+                margin-top: 5px;
+                line-height: 16px;
+                padding: 0 4px;
+            }
+        }
+    }
+    .dianPu{
+        background-color: #fff;
+        .dianPu_one{
+            height: 50%;
+            .dianPu_one_left{
+                float: left;
+                width: 50%;
+                height: 100%;
+                position: relative;
+                .touXiang{
+                    left: 10%;
+                    top: 20%;
+                    position: absolute;
+                    height: 80%;
+                }
+                span{
+                    left: 42%;
+                    top: 20%;
+                    position: absolute;
+
+                }
+                .dianPu_one_left_dengJi{
+                    position: absolute;
+                    left: 42%;
+                    height: 100%;
+                    padding-top: 20%;
+                    .dengJi{
+                        height: 60%;
+                        float: left;
+                    }
+                }
+            }
+            .dianPu_one_right{
+                float: left;
+                width: 50%;
+                position: relative;
+                padding-right: 2%;
+                button{
+                    float: right;
+                    margin: 10%  3%;
+                    padding:2% ;
+                    border-radius: 20px;
+                }
+                :nth-child(2){
+                    color: rgb(255, 80, 0);
+                    border: 1px solid rgb(255, 80, 0);
+                    background-color: #fff;
+                }
+                :nth-child(1){
+                    background-color: rgb(255, 80, 0);
+                    color: #ffffff;
+                    border: 0;
+                }
+            }
+        }
+        .dianPu_two{
+            height: 50%;
+            padding: 3% 2% 2% 0;
+            .dianPu_two_span{
+                margin: 4%;
+                color: #999999;
+                span{
+                    color: rgb(255, 80, 0);;
+                }
+            }
+        }
     }
 </style>
