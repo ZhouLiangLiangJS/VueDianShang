@@ -56,9 +56,9 @@
                     <span @click="GouWuFlag=!GouWuFlag" class="mui-icon mui-icon-closeempty"></span>
                 </div>
                 <div class="GouWuFlag_main">
-                    <div v-for="item in showCommodity.JiaRuGouWuChe">
+                    <div :key="item.title" v-for="(item,i) in showCommodity.JiaRuGouWuChe">
                         <p>{{item.title}}</p>
-                        <button v-for="child in item.classTitle">{{child.txt}}</button>
+                        <button :class="{active:child.txt===JiaRuGouWuCheActive}" :key="child.txt"  @click="JiaRuGouWuChe(i,child.txt)" v-for="child in item.classTitle">{{child.txt}}</button>
                     </div>
                     <div class="gouMaiShuLiang">
                         <p>购买数量</p>
@@ -178,18 +178,21 @@
                 GouWuFlag:false,
                 GouWuFlag_nav_imgSrc:null,
                 GouWuFlag_nav_JiaGe:null,
-                GouMaiShuLiang:1
+                GouMaiShuLiang:1,
+                JiaRuGouWuCheActive: "12CM厚(针织面料+3E环保椰棕)"
             }
         },
         methods:{
-          getJson(){
+            getJson(){
               this.$http.get("../json/commodityDetails.json").then(
                   function (res,err) {
                       if (res.status === 200) {
                            for (let i = 0; i < res.body.length; i++) {
                                if (this.$route.params.id===res.body[i].id){
                                    this.showCommodity=res.body[i];
-                                   console.log(this.showCommodity)
+                                   // for(let j = 0;j<res.body[i].JiaRuGouWuChe.length;j++){
+                                   //     this.JiaRuGouWuCheActive[j]={title:res.body[i].JiaRuGouWuChe[j].title,active:null}
+                                   // }
                               }
                           }
                       }else {
@@ -197,10 +200,15 @@
                       }
                   }
               )
+              console.log(this.JiaRuGouWuCheActive)
           },
-          backGo(){
-              this.$router.go(-1)
-          }
+            backGo(){
+                this.$router.go(-1)
+            },
+            JiaRuGouWuChe(i,txt,imgUrl,jiaGe){
+                this.JiaRuGouWuCheActive=txt;
+                console.log(this.JiaRuGouWuCheActive);
+            }
         },
         created() {
             this.getJson();
@@ -512,5 +520,10 @@
         -ms-transition: all 0.3s;
         -o-transition: all 0.3s;
         transition: all 0.3s;
+    }
+    .active{
+        background-image: linear-gradient(to right, #FF7A00 100%, #FE560A 100%) ;
+        color: #ffffff;
+        border: 0;
     }
 </style>
