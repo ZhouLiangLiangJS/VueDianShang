@@ -6,9 +6,13 @@ import VueJsonp from 'vue-jsonp';
 import app from './components/app.vue'
 import router from './router.js';
 import './css/index.less';
-import { Header,Swipe,SwipeItem,InfiniteScroll,Spinner,Lazyload} from 'mint-ui';
+import {Header, InfiniteScroll, Lazyload, Spinner, Swipe, SwipeItem} from 'mint-ui';
 import './lib/dist/css/mui.min.css';
 import './lib/css/icons-extra.css';
+import VueDirectiveImagePreviewer from 'vue-directive-image-previewer'
+import 'vue-directive-image-previewer/dist/assets/style.css'
+
+Vue.use(VueDirectiveImagePreviewer);
 Vue.use(VueJsonp);
 Vue.use(VueResource);
 Vue.use(InfiniteScroll);

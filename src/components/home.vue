@@ -70,8 +70,9 @@
 
 <script>
     import Vue from 'vue';
-    import { Toast } from 'mint-ui';
+    import {Toast} from 'mint-ui';
     import caiNiXiHuan from './caiNiXiHuan.vue'
+
     Vue.directive("getHeight",{
         bind: function (el,binding) {
             el.style.height = window.innerWidth * binding.value + "px";
@@ -218,13 +219,20 @@
             this.getNewsFZ();
             this.getMainFZ();
             this.getQuanQiuFZ();
-            console.log(this.$el.scrollIntoView)
+            this.tiao()
         },
         updated(){
             this.getNavListFZ();
             // this.getNewsFZ();
         },
         methods: {
+            tiao(){
+                Toast({
+                    message: '首页只做了新闻对应页面，搜索对应页面，为你推荐商品对应页面',
+                    position: 'center',
+                    duration: 6000
+                })
+            },
             al(txt){
                 Toast({
                     message: txt,

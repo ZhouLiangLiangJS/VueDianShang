@@ -20,7 +20,6 @@
                 </div>
             </div>
         </ul>
-
     </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="nav">
-            <a :style="'fontSize:'+this.screenWidth*0.1+'px'" @click.prevent="backGo" class="mui-icon-extra mui-icon-extra-arrowleftcricle"></a>
+            <a :style="'fontSize:'+this.screenWidth*0.1+'px'" @click.prevent="backGo" class="mui-icon mui-icon-back"></a>
             <router-link :style="'fontSize:'+this.screenWidth*0.1+'px'" class="mui-icon-extra mui-icon-extra-cart" to="/shopping"></router-link>
         </div>
         <mt-swipe :auto="0" :style="'height:'+this.screenWidth+'px'" class="LunBo">
@@ -26,7 +26,7 @@
         </div>
         <div :style="'height:'+this.screenWidth*0.11+'px;marginTop:2%;'" @click="GouWuFlag=!GouWuFlag" class="fuWu">
             <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.11+'px'">规格</span>
-            <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.11+'px'">已选:{{guiGeXuanZhong===null?showCommodity.JiaRuGouWuChe[0].classTitle[0].txt:guiGeXuanZhong}}</span>
+            <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.11+'px'">已选:{{guiGeXuanZhong===null?"无":guiGeXuanZhong}}</span>
             <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.11+'px'" class="mui-icon mui-icon-arrowright"></span>
         </div>
         <transition name="fuWu">
@@ -50,9 +50,9 @@
         <transition name="fuWu">
             <div :style="'height:'+this.screenHeight*0.8+'px'" class="GouWuFlag" v-show="GouWuFlag">
                 <div class="GouWuFlag_nav">
-                    <img :src="GouWuFlag_nav_imgSrc===null?GouWuFlag_nav_imgSrc=showCommodity.JiaRuGouWuChe[0].classTitle[0].imgUrl:GouWuFlag_nav_imgSrc" alt="无法显示">
-                    <span>￥{{GouWuFlag_nav_JiaGe===null?GouWuFlag_nav_JiaGe=showCommodity.JiaRuGouWuChe[0].classTitle[0].JiaGe:GouWuFlag_nav_JiaGe}}</span>
-                    <span>已选：{{guiGeXuanZhong===null?guiGeXuanZhong=showCommodity.JiaRuGouWuChe[0].classTitle[0].txt:guiGeXuanZhong}}</span>
+                    <img :src="GouWuFlag_nav_imgSrc===null?'https://gss0.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/zhidao/wh%3D600%2C800/sign=f0dc53b759b5c9ea62a60be5e5099a38/8601a18b87d6277f5a6857842a381f30e924fc10.jpg':GouWuFlag_nav_imgSrc" alt="无法显示" v-image-preview>
+                    <span>￥{{GouWuFlag_nav_JiaGe===null?0:GouWuFlag_nav_JiaGe}}</span>
+                    <span>已选：{{guiGeXuanZhong===null?"无":guiGeXuanZhong}}</span>
                     <span @click="GouWuFlag=!GouWuFlag" class="mui-icon mui-icon-closeempty"></span>
                 </div>
                 <div class="GouWuFlag_main">
@@ -81,7 +81,7 @@
             <p class="pingjia_header">
                 <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.11+'px'">宝贝评价({{showCommodity.pingJia.length}})</span>
                 <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.11+'px'" class="mui-icon mui-icon-arrowright"></span>
-                <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.11+'px'">查看全部</span>
+                <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.11+'px'" @click="XiangXipingJia=!XiangXipingJia">查看全部</span>
             </p>
             <div>
                 <img :src="showCommodity.pingJia[0].userImage" :style="'width:'+this.screenWidth*0.04+'px;'" alt="">
@@ -93,7 +93,7 @@
             <div class="dianPu_one">
                 <div class="dianPu_one_left">
                     <img :src="showCommodity.touXiang" alt="无法显示" class="touXiang">
-                    <span :style="'fontSize:'+this.screenWidth*0.035+'px'">慕斯优</span>
+                    <span :style="'fontSize:'+this.screenWidth*0.035+'px'">{{showCommodity.dianPuMing}}</span>
                     <div class="dianPu_one_left_dengJi">
                         <img  :src="item" alt=""  class="dengJi" v-for="item in showCommodity.dengJi">
                     </div>
@@ -109,11 +109,53 @@
                 <span :style="'fontSize:'+this.screenWidth*0.035+'px'" class="dianPu_two_span">宝贝描述:<span>{{showCommodity.pingFen[2]}}    {{showCommodity.pingFen[2]>=4?'高':'低'}}</span>    </span>
             </div>
         </div>
+        <div class="xiangQing">
+            <div :style="'height:'+this.screenWidth*0.12+'px;'" class="xiangQing_p">
+                <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.11+'px'" class="mui-icon mui-icon-image"> 详情</span>
+                <div class="borderBottom"></div>
+            </div>
+            <img :src="item" alt="" v-for="item in showCommodity.XiangQing">
+            <div :style="'height:'+this.screenWidth*0.12+'px;'" class="xiangQing_p">
+                <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.11+'px'" class="mui-icon-extra mui-icon-extra-heart"> 推荐</span>
+                <div class="borderBottom"></div>
+            </div>
+            <caiNiXiHuan></caiNiXiHuan>
+        </div>
+        <div class="MaiGou">
+            <div>
+                <button @click="GouWuFlag=!GouWuFlag">加入购物车</button>
+                <button @click="GouWuFlag=!GouWuFlag">立刻购买</button>
+            </div>
+        </div>
+        <transition name="pingJia">
+            <div class="XiangXipingJia" v-show="XiangXipingJia">
+                <div class="XiangXipingJia_header">
+                    <i :style="'fontSize:'+this.screenWidth*0.1+'px;lineHeight:'+this.screenWidth*0.15+'px'" @click="XiangXipingJia=!XiangXipingJia" class="mui-icon mui-icon-arrowleft"></i>
+                    <span :style="'fontSize:'+this.screenWidth*0.05+'px;lineHeight:'+this.screenWidth*0.15+'px'">评价</span>
+                </div>
+                <div class="XiangXipingJia_loadMore" >
+                    <div class="XiangXipingJia_loadMore_list" v-for="(item,i) in showCommodity.pingJia">
+                        <div class="XiangXipingJia_loadMore_list_header">
+                            <img :src="item.userImage" alt="">
+                            <span>{{item.userName}}</span>
+                            <i>{{item.time}}</i>
+                        </div>
+                        <p>{{item.txt}}</p>
+                        <div class="XiangXipingJia_loadMore_list_img">
+                            <div class="chaKanDaTu" v-for="imgArrs in item.imgArr">
+                                <img  :src="imgArrs" alt=""  v-image-preview>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </transition>
     </div>
 </template>
 
 <script>
     import vueSeamless from 'vue-seamless-scroll'
+    import caiNiXiHuan from './caiNiXiHuan.vue'
 
     export default {
         name: "commodityDetails",
@@ -212,7 +254,8 @@
                 GouWuFlag_nav_JiaGeJiCu:[],
                 GouWuFlag_nav_JiaGe:null,
                 GouMaiShuLiang:1,
-                JiaRuGouWuCheActive: ['']
+                JiaRuGouWuCheActive: [''],
+                XiangXipingJia:false
             }
         },
         methods:{
@@ -222,6 +265,7 @@
                       if (res.status === 200) {
                            for (let i = 0; i < res.body.length; i++) {
                                if (this.$route.params.id===res.body[i].id){
+                                   console.log(this.$route.params.id,res.body[i].id);
                                    this.showCommodity=res.body[i];
                                    for(let j =0 ;j<this.showCommodity.JiaRuGouWuChe.length;j++){
                                        this.GouWuFlag_nav_JiaGeJiCu[j]=this.showCommodity.JiaRuGouWuChe[j].classTitle[0].JiaGe;
@@ -251,6 +295,22 @@
                    num+=this.GouWuFlag_nav_JiaGeJiCu[j]
                 }
                 this.GouWuFlag_nav_JiaGe=num;
+                let str='';
+                let arr1=this.JiaRuGouWuCheActive.slice();
+                for (let o = 0; o < arr1.length; o++) {
+                    str+=" "+arr1[o];
+                }
+                this.guiGeXuanZhong=str;
+            },
+            loadMore() {
+                this.loading = true;
+                setTimeout(() => {
+                    let last = this.list[this.list.length - 1];
+                    for (let i = 1; i <= 10; i++) {
+                        this.list.push(last + i);
+                    }
+                    this.loading = false;
+                }, 2500);
             }
         },
         created() {
@@ -263,7 +323,7 @@
                 })()
             };
         },
-        components:{vueSeamless},
+        components:{vueSeamless,caiNiXiHuan},
         watch:{
             "GouMaiShuLiang":function(val,old){
                 let num=0;
@@ -384,7 +444,7 @@
         width: 100%;
         background-color: #fff;
         bottom: 0;
-        z-index: 99;
+        z-index: 999999999999;
         border-radius: 3% 3% 0 0;
         .fuWuFlag_title{
             height: 30px;
@@ -454,7 +514,7 @@
         width: 100%;
         background-color: #fff;
         bottom: 0;
-        z-index: 99;
+        z-index: 9999999999;
         border-radius: 3% 3% 0 0;
         .GouWuFlag_nav{
             width: 94%;
@@ -693,5 +753,149 @@
                 }
             }
         }
+    }
+    .xiangQing{
+        position: relative;
+        .xiangQing_p{
+            text-align: center;
+            position: relative;
+            span{
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%) translateY(-50%);
+                top: 50%;
+                background-color: #efeff4;
+                z-index: 99;
+                padding: 0 10px;
+                color: #999;
+            }
+            .borderBottom{
+                position: absolute;
+                width: 50%;
+                height: 1px;
+                border-bottom: 1px solid #999999;
+                left: 50%;
+                transform: translateX(-50%) translateY(-50%);
+                top: 50%;
+            }
+        }
+        img{
+            width: 100%;
+            vertical-align:bottom
+        }
+    }
+    .MaiGou{
+        width: 100%;
+        height: 10%;
+        min-height: 50px;
+        position: fixed;
+        z-index: 99999999;
+        bottom: 0;
+        background-color: #fff;
+        box-shadow: 0 0 10px 0 hsla(0, 6%, 58%, 0.6);
+        div{
+            width: 90%;
+            height: 30px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            top: 50%;
+            button{
+                float: left;
+                margin: 0;
+                padding: 0;
+                width: 50%;
+                height: 100%;
+                border: 0;
+                font-size: 12px;
+                color: #ffffff;
+            }
+            :nth-child(1){
+                background-image: linear-gradient(to right, #FFC500, #FF9402);
+                border-radius: 15px 0 0 15px;
+            }
+            :nth-child(2){
+                border-radius: 0 15px 15px 0;
+                background-image: linear-gradient(to right, #FF7A00, #FE560A);
+            }
+        }
+    }
+    .XiangXipingJia{
+        position: fixed;
+        z-index: 99999999999999;
+        height: 100%;
+        width: 100%;
+        background-color: #fff;
+        top: 0;
+        .XiangXipingJia_header{
+            position: absolute;
+            width: 100%;
+            height: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            background-color: #ffffff;
+            border-bottom:1px solid #ccc ;
+            box-shadow: 0 0 10px 0 hsla(0, 6%, 58%, 0.6);
+            i,span{
+                color: #666;
+            }
+            span{
+                margin-left:33%;
+                font-weight: 600;
+            }
+        }
+        .XiangXipingJia_loadMore{
+            position: absolute;
+            overflow:scroll;
+            overflow-x: hidden;
+            height: 90%;
+            width: 95%;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            .XiangXipingJia_loadMore_list{
+                border-bottom: 1px solid #cccccc;
+                .XiangXipingJia_loadMore_list_header{
+                    height: 50px;
+                    width: 100%;
+                    line-height: 50px;
+                    img{
+                        width: 20px;
+                        border-radius: 100%;
+                    }
+                    span{
+                        font-size: 14px;
+                        color: #999999;
+                    }
+                    i{
+                        font-style: normal;
+                        float: right;
+                        font-size: 12px;
+                        color: #999999;
+                    }
+                }
+                p{
+                    color: black;
+                }
+                .XiangXipingJia_loadMore_list_img{
+                    div{
+                        width: 20%;
+                        display: inline-block;
+                        padding: 10px;
+                        img{
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .pingJia-enter,.pingJia-leave-to{
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    .pingJia-enter-active,.pingJia-leave-active{
+        transition: all 0.3s;
     }
 </style>
