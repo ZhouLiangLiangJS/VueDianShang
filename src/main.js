@@ -11,7 +11,9 @@ import './lib/dist/css/mui.min.css';
 import './lib/css/icons-extra.css';
 import VueDirectiveImagePreviewer from 'vue-directive-image-previewer'
 import 'vue-directive-image-previewer/dist/assets/style.css'
+import Vuex from 'vuex';
 
+Vue.use(Vuex);
 Vue.use(VueDirectiveImagePreviewer);
 Vue.use(VueJsonp);
 Vue.use(VueResource);
@@ -22,8 +24,27 @@ Vue.component(SwipeItem.name, SwipeItem);
 Vue.component(Header.name,Header);
 Vue.use(VueRouter);
 Vue.use(Lazyload);
+let store=new Vuex.Store({
+    state:{
+        userName:'请输入用户名',
+        userPassword:'请输入密码',
+        login:true
+    },
+    mutations:{
+        setUserName:function (state,userName) {
+            state.userName=userName;
+        },
+        setUserPassword:function (state,userPassword) {
+            state.userPassword=userPassword;
+        },
+        setLogin(state,flag){
+            state.login=flag;
+        }
+    }
+});
 let vm=new Vue({
     el:'#dv',
     render:(c)=>c(app),
-    router
+    router,
+    store
 });

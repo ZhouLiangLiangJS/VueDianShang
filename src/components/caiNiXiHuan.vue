@@ -70,12 +70,14 @@
         }
         li{
             width: 100%;
+            overflow: hidden;
             div{
                 width: 49%;
                 display: inline-block;
                 background-color: #fff;
                 margin-bottom: 2%;
                 position: relative;
+                float: left;
                 img{
                     width: 100%;
                 }

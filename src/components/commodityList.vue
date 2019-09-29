@@ -16,9 +16,9 @@
         <div class="list">
             <router-link :key="item.id" :style="'height: '+screenWidth*0.6875+'px'" :to="'/commodityDetails/'+item.id" class="list_com" ref="list_com" v-for="item in searchList" v-get-height="0.6875">
                 <img :src="item.imgUrl" alt="无法显示">
-                <span :style="'font-size: '+screenWidth*0.04+'px; lineHeight:'+screenWidth*0.05+'px;height:'+screenWidth*0.1+'px'">{{item.title}}</span>
-                <p :style="'font-size: '+screenWidth*0.04+'px;lineHeight:'+screenWidth*0.04+'px'">￥{{item.Price}}</p>
-                <i :style="'font-size: '+screenWidth*0.035+'px;lineHeight:'+screenWidth*0.04+'px'">{{item.NumberPeople}}人付款</i>
+                <span :style="'font-size: '+screenWidth*0.04+'px; lineHeight:'+screenWidth*0.052+'px;height:'+screenWidth*0.1+'px'">{{item.title}}</span>
+                <p :style="'font-size: '+screenWidth*0.04+'px;lineHeight:'+screenWidth*0.045+'px'">￥{{item.Price}}</p>
+                <i :style="'font-size: '+screenWidth*0.035+'px;lineHeight:'+screenWidth*0.045+'px'">{{item.NumberPeople}}人付款</i>
             </router-link>
         </div>
     </div>
