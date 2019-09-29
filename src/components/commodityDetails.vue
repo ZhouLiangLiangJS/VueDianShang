@@ -71,8 +71,8 @@
                 </div>
                 <div class="GouWuFlag_bottom">
                     <div>
-                        <button>加入购物车</button>
-                        <button>立刻购买</button>
+                        <button @click="jiaRuShopping()">加入购物车</button>
+                        <button @click="al('想买啊？上淘宝去')">立刻购买</button>
                     </div>
                 </div>
             </div>
@@ -150,12 +150,17 @@
                 </div>
             </div>
         </transition>
+        <transition name="login">
+            <login v-show="login_Flag"></login>
+        </transition>
     </div>
 </template>
 
 <script>
     import vueSeamless from 'vue-seamless-scroll'
     import caiNiXiHuan from './caiNiXiHuan.vue'
+    import login from './login.vue'
+    import {Toast} from 'mint-ui';
 
     export default {
         name: "commodityDetails",
@@ -255,7 +260,8 @@
                 GouWuFlag_nav_JiaGe:null,
                 GouMaiShuLiang:1,
                 JiaRuGouWuCheActive: [''],
-                XiangXipingJia:false
+                XiangXipingJia:false,
+                login_Flag:false
             }
         },
         methods:{
@@ -311,6 +317,39 @@
                     }
                     this.loading = false;
                 }, 2500);
+            },
+            al(txt){
+                Toast({
+                    message: txt,
+                    position: 'center',
+                    duration: 3000
+                })
+            },
+            jiaRuShopping(){
+                if(this.$store.state.login){
+                    setTimeout(()=>{
+                        this.login_Flag=true;
+                    },300)
+                }else{
+                    if(this.GouWuFlag_nav_JiaGeJiCu.length!==this.JiaRuGouWuCheActive.length){
+                        this.al('请完整选择');
+                    }else {
+                        let arr=JSON.parse(localStorage.getItem('user'));
+                        for(let i=0;i<arr.length;i++){
+                            if(arr[i].userName===this.$store.state.userName){
+                                let shopArr=[{
+                                    yanSe:this.guiGeXuanZhong,
+                                    num:this.GouMaiShuLiang,
+                                    jiaGe: this.GouWuFlag_nav_JiaGe,
+                                    img:this.GouWuFlag_nav_imgSrc
+                                }];
+                                arr[i].shopping.unshift(shopArr);
+                                localStorage.setItem('user',JSON.stringify(arr));
+                            }
+                        }
+                        this.al('加入购物车成功');
+                    }
+                }
             }
         },
         created() {
@@ -323,14 +362,17 @@
                 })()
             };
         },
-        components:{vueSeamless,caiNiXiHuan},
+        components:{vueSeamless,caiNiXiHuan,login},
         watch:{
-            "GouMaiShuLiang":function(val,old){
+            "GouMaiShuLiang"(val,old){
                 let num=0;
                 for(let j =0;j<this.GouWuFlag_nav_JiaGeJiCu.length;j++){
                     num+=this.GouWuFlag_nav_JiaGeJiCu[j]
                 }
                 this.GouWuFlag_nav_JiaGe=val*num;
+            },
+            "$store.state.login"(val){
+                this.login_Flag=val;
             }
         }
     }
@@ -896,6 +938,13 @@
         transform: translateX(100%);
     }
     .pingJia-enter-active,.pingJia-leave-active{
+        transition: all 0.3s;
+    }
+    .login-enter,.login-leave{
+        top: 100%;
+        opacity: 0;
+    }
+    .login-enter-active,.login-leave-active{
         transition: all 0.3s;
     }
 </style>

@@ -8,10 +8,10 @@
                 <label>
                     <input @blur="blurUserPassword()" @focus="focusUserPassword()" type="text" v-model="$store.state.userPassword">
                 </label>
-                <span @click="flag=!flag">免费注册</span>
                 <span @click="login">登陆</span>
+                <span @click="flag=!flag">免费注册</span>
             </div>
-            <transition>
+            <transition name="register">
                 <register @setFlag="setFlag()" v-show="flag"></register>
             </transition>
         </div>
@@ -124,11 +124,14 @@
             }
         }
     }
-    .v-enter,.v-leave{
+    .register-enter{
         transform: translateY(100%);
         opacity: 0;
     }
-    .v-enter-active{
+    .register-leave{
+        opacity: 0;
+    }
+    .register-enter-active{
         transition: all 1s;
     }
 </style>

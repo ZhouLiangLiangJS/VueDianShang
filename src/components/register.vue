@@ -68,7 +68,10 @@
                     if(arrNum===0){
                         arr.unshift({
                             userName:this.userName,
-                            userPassword:this.userPassword
+                            userPassword:this.userPassword,
+                            shopping:[],
+                            niCheng:this.userName,
+                            touXiang: ''
                         });
                         arr.splice(10);
                         console.log(arr);
@@ -109,7 +112,7 @@
             }
             input{
                 border:0;
-                border-bottom: 1px solid rgb(61,182,129);
+                border-bottom: 1px solid rgb(54,72,92);
                 border-radius: 0;
                 color: #999999;
                 margin-top: 5%;
@@ -118,7 +121,7 @@
             span{
                 display: inline-block;
                 font-size: 14px;
-                background-color: rgb(61,182,129);
+                background-color: rgb(54,72,92);
                 width: 50%;
                 height: 40px;
                 color: #ffffff;
