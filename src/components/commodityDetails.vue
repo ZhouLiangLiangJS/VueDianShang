@@ -119,7 +119,7 @@
                 <span :style="'fontSize:'+this.screenWidth*0.04+'px;lineHeight:'+this.screenWidth*0.11+'px'" class="mui-icon-extra mui-icon-extra-heart"> 推荐</span>
                 <div class="borderBottom"></div>
             </div>
-            <caiNiXiHuan></caiNiXiHuan>
+            <caiNiXiHuan :width="screenWidth"></caiNiXiHuan>
         </div>
         <div class="MaiGou">
             <div>
@@ -337,16 +337,20 @@
                         let arr=JSON.parse(localStorage.getItem('user'));
                         for(let i=0;i<arr.length;i++){
                             if(arr[i].userName===this.$store.state.userName){
-                                let shopArr=[{
+                                let shopArr={
                                     yanSe:this.guiGeXuanZhong,
                                     num:this.GouMaiShuLiang,
                                     jiaGe: this.GouWuFlag_nav_JiaGe,
-                                    img:this.GouWuFlag_nav_imgSrc
-                                }];
+                                    img:this.GouWuFlag_nav_imgSrc,
+                                    dianPu:this.showCommodity.dianPuMing,
+                                    id:this.showCommodity.id,
+                                    title:this.showCommodity.title
+                                };
                                 arr[i].shopping.unshift(shopArr);
                                 localStorage.setItem('user',JSON.stringify(arr));
                             }
                         }
+                        this.GouWuFlag=false;
                         this.al('加入购物车成功');
                     }
                 }
