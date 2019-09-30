@@ -28,7 +28,8 @@ let store=new Vuex.Store({
     state:{
         userName:'请输入用户名',
         userPassword:'请输入密码',
-        login:true
+        login:true,
+        num:0
     },
     mutations:{
         setUserName:function (state,userName) {
@@ -39,6 +40,9 @@ let store=new Vuex.Store({
         },
         setLogin(state,flag){
             state.login=flag;
+        },
+        setNum(state,num){
+            state.num=num
         }
     }
 });

@@ -271,7 +271,6 @@
                       if (res.status === 200) {
                            for (let i = 0; i < res.body.length; i++) {
                                if (this.$route.params.id===res.body[i].id){
-                                   console.log(this.$route.params.id,res.body[i].id);
                                    this.showCommodity=res.body[i];
                                    for(let j =0 ;j<this.showCommodity.JiaRuGouWuChe.length;j++){
                                        this.GouWuFlag_nav_JiaGeJiCu[j]=this.showCommodity.JiaRuGouWuChe[j].classTitle[0].JiaGe;
@@ -279,7 +278,6 @@
                               }
                           }
                       }else {
-                          console.log(err)
                       }
                   }
               );

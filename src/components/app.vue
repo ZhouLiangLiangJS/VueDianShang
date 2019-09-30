@@ -9,7 +9,7 @@
                     <span class="mui-tab-label">首页</span>
                 </router-link>
                 <router-link class="mui-tab-item" to="/shopping">
-                    <span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge">0</span></span>
+                    <span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge">{{$store.state.num}}</span></span>
                     <span class="mui-tab-label">购物车</span>
                 </router-link>
                 <router-link class="mui-tab-item" to="/list">
@@ -38,6 +38,17 @@
         watch:{
             "$route.path":function (newData) {
                 newData==='/search'?this.flag=false:this.flag=true;
+            },
+            "$store.state.login":function(val){
+                if(!val){
+                    let arr=JSON.parse(localStorage.getItem('user'));
+                    for (let i=0;i<arr.length;i++){
+                        if(arr[i].userName===this.$store.state.userName){
+                            this.$store.commit('setNum',arr[i].shopping.length);
+                            console.log(arr[i].shopping.length)
+                        }
+                    }
+                }
             }
         }
     }

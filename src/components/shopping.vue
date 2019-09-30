@@ -8,7 +8,7 @@
                     <p :style="'fontSize:'+this.screenWidth*0.03+'px;lineHeight:'+this.screenWidth*0.07+'px'">共{{num}}件宝贝</p>
                 </div>
                 <div :style="'marginTop:-'+this.screenWidth*0.27+'px'" class="shopping_main_list">
-                    <div class="shopping_main_list_div" v-for="(item,index) in shoppingArr">
+                    <div :key="index" class="shopping_main_list_div" v-for="(item,index) in shoppingArr">
                         <div class="shopping_main_list_header">
                             <i>
                                 <label :for="'checkbox'+index">
@@ -20,7 +20,7 @@
                         </div>
                         <div class="shopping_main_list_main">
                             <img :src="item.img" alt="">
-                            <span>{{item.title}}</span>
+                            <router-link :to="'commodityDetails/'+item.id" tag="span">{{item.title}}</router-link>
                             <i>已选:{{item.yanSe}}</i>
                             <div>
                                 <button @click="reduce(index)">-</button>
@@ -46,7 +46,7 @@
                         <i>
                             ￥{{heJi}}
                         </i>
-                        <button>结算({{inputList.length}})</button>
+                        <button @click="al('想买啊?去淘宝呗')">结算({{inputList.length}})</button>
                     </div>
                     <div class="shopping_bottom_right" v-show="del">
                         <button @click="dele">删除({{inputList.length}})</button>
@@ -62,6 +62,7 @@
 
 <script>
     import login from './login.vue'
+    import {Toast} from 'mint-ui';
 
     export default {
         name: "shopping",
@@ -109,6 +110,13 @@
             localStorage.setItem('user',JSON.stringify(arr))
         },
         methods:{
+            al(txt){
+                Toast({
+                    message: txt,
+                    position: 'center',
+                    duration: 1000
+                });
+            },
             loginShow(){
                 if (this.$store.state.login){
                     setTimeout(()=>{
@@ -212,8 +220,8 @@
                 width: 100%;
                 min-height: 200px;
                 .shopping_main_list_div{
-                    height: 100px;
-                    width: 300px;
+                    height: 140px;
+                    width: 90%;
                     background-color: #fff;
                     margin: 2% auto;
                     border-radius: 10px;
@@ -235,7 +243,7 @@
                         height: 75%;
                         border-top: 1px solid #ccc;
                         position: absolute;
-                        padding-left: 11%;
+                        padding-left: 5%;
                         bottom:0;
                         img{
                             height: 100%;
@@ -243,7 +251,7 @@
                         span{
                             top: 0;
                             width: 55%;
-                            left: 40%;
+                            left: 45%;
                             position: absolute;
                             box-sizing: border-box;
                             font-size: 13px;
@@ -257,9 +265,9 @@
                         }
                         i{
                             font-style: normal;
-                            bottom: 10%;
+                            bottom: 30%;
                             width: 40%;
-                            left: 40%;
+                            left: 45%;
                             position: absolute;
                             box-sizing: border-box;
                             font-size: 13px;
