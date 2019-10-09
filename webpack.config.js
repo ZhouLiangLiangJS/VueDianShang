@@ -10,7 +10,7 @@ module.exports = {
         path: path.join(__dirname, 'dist'),
         filename: 'bundle.js'
     },
-    mode: "development",
+    mode: "production",
     plugins: [
         new htmlWebpackPlugin({
             template: path.join(__dirname, 'src/index.html')
@@ -31,6 +31,17 @@ module.exports = {
             {test:/\.(ttf|eot|svg|woff|woff2)$/,use:'url-loader'},
             {test:/\.(png|jpg|gif|jpeg)$/,use:'url-loader'}
         ]
+    },
+
+    performance: {
+        hints: "warning", // 枚举
+        maxAssetSize: 30000000, // 整数类型（以字节为单位）
+        maxEntrypointSize: 50000000, // 整数类型（以字节为单位）
+        assetFilter: function(assetFilename) {
+            // 提供资源文件名的断言函数
+            return assetFilename.endsWith('.css') || assetFilename.endsWith('.js');
+
+        }
     },
     resolve: {
         alias: {
